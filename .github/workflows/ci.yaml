@@ -17,13 +17,12 @@ jobs:
     
     - name: Install and test node project
       run: |
-        ls
-        cd capstone_project/
-        ls
-        cd hello-world/
+        cd capstone_project/hello-world/
         npm install
         npm test
       
     - name: Build Docker Image
       if: ${{ success() }}
-      run: docker build -t hello-adal /capstone_proyect/hello-world
+      run: |
+        cd capstone_project/hello-world/
+        docker build -t hello-adal .
