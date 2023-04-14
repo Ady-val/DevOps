@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install and test node project
+      run: npm install
+      run: npm test
+      
+    - name: Build Docker Image
+      if: ${{ success() }}
+      run: docker build -t hello-adal /capstone_proyect/hello-world
