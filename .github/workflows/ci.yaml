@@ -22,7 +22,7 @@ jobs:
         npm test
       
     - name: Build Docker Image
-      if: ${{ success() }}
+#       if: ${{ success() }}
       run: |
         cd capstone_project/hello-world/
         docker build -t hello-adal .
