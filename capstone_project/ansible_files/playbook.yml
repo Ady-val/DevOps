@@ -1,0 +1,14 @@
+- name: My First Playbook
+  hosts: hello-adal
+  become: yes
+
+  tasks:
+    - name: Ping Check using ping module
+      ping:
+
+    - name: Modificar archivo en el contenedor
+      replace:
+        path: /src/App.js
+        regexp: 'Hello World'
+        replace: 'Hello DevOps'
+      connection: docker

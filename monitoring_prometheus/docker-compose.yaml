@@ -7,7 +7,7 @@ services:
           - bridge
         pid: host
         volumes:
-            - '/:/host:ro,rslave'
+            - './volume/:/host:ro,rslave'
         image: 'quay.io/prometheus/node-exporter:latest'
         ports:
             - '9100:9100' 

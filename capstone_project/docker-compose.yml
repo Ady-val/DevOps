@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  ansible:
+    image: 'ansible'
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False
+    build:
+      context: ./ansible_base
+      dockerfile: Dockerfile
+    container_name: ansible_controller
+    volumes:
+      - type: bind
+        source: ./ansible_files
+        target: /home/ansible_controller/ansible_files
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      mynetwork:
+        aliases:
+          - ansible-controller
+    command: tail -f /dev/null  # mantener el contenedor en ejecución
+
+  target1:
+    image: 'hello-adal'
+    ports:
+      - "22:22"
+      - "3000:3000"
+    build: 
+      context: ./hello-world
+      dockerfile: Dockerfile
+    container_name: hello-adal
+    volumes:
+      - type: bind
+        source: ./ansible_files
+        target: /home/ansible_controller/ansible_files
+    networks:
+      mynetwork:
+        aliases:
+          - hello-adal
+
+networks:
+  mynetwork:
